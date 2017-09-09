@@ -2,7 +2,6 @@ package com.github.jhonnyx2012.horizontalpicker;
 
 
 import android.app.AlarmManager;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +34,6 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
 
     public HorizontalPickerAdapter(int itemWidth,
                                    OnItemClickedListener listener,
-                                   Context context,
                                    int daysToCreate,
                                    int offset,
                                    int mBackgroundColor,

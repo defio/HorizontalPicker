@@ -81,7 +81,6 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                 itemWidth = getMeasuredWidth() / 7;
                 adapter = new HorizontalPickerAdapter((int) itemWidth,
                         HorizontalPickerRecyclerView.this,
-                        getContext(),
                         daysToPlus,
                         initialOffset,
                         mBackgroundColor,
