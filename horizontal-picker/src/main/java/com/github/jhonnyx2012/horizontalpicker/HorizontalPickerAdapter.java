@@ -84,10 +84,10 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         holder.tvWeekDay.setText(item.getWeekDay());
         holder.tvWeekDay.setTextColor(mDayOfWeekTextColor);
         if (item.isSelected()) {
-            holder.tvDay.setBackgroundDrawable(getDaySelectedBackground(holder.itemView));
+            holder.tvDay.setBackground(getDaySelectedBackground(holder.itemView));
             holder.tvDay.setTextColor(mDateSelectedTextColor);
         } else if (item.isToday()) {
-            holder.tvDay.setBackgroundDrawable(getDayTodayBackground(holder.itemView));
+            holder.tvDay.setBackground(getDayTodayBackground(holder.itemView));
             holder.tvDay.setTextColor(mTodayDateTextColor);
         } else {
             holder.tvDay.setBackgroundColor(mBackgroundColor);
