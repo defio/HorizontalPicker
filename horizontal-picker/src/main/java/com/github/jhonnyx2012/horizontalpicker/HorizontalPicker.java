@@ -141,22 +141,22 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         }
     }
 
+    public int getDays() {
+        return days;
+    }
+
     public HorizontalPicker setDays(int days) {
         this.days = days;
         return this;
     }
 
-    public int getDays() {
-        return days;
+    public int getOffset() {
+        return offset;
     }
 
     public HorizontalPicker setOffset(int offset) {
         this.offset = offset;
         return this;
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
     public HorizontalPicker setDateSelectedColor(@ColorInt int color) {

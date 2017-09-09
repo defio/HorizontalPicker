@@ -2,8 +2,6 @@ package com.github.jhonnyx2012.horizontalpicker;
 
 import org.joda.time.DateTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -22,7 +20,9 @@ public class Day {
     }
 
     public String getWeekDay() {
-        return date.toString("EEE", Locale.getDefault()).toUpperCase();
+        return date
+                .toString("EEE", Locale.getDefault())
+                .toUpperCase();
     }
 
     public String getMonth() {
@@ -30,19 +30,19 @@ public class Day {
     }
 
     public DateTime getDate() {
-        return date.withTime(0,0,0,0);
+        return date.withTime(0, 0, 0, 0);
     }
 
     public boolean isToday() {
-        DateTime today=new DateTime().withTime(0,0,0,0);
-        return getDate().getMillis()==today.getMillis();
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+        DateTime today = new DateTime().withTime(0, 0, 0, 0);
+        return getDate().getMillis() == today.getMillis();
     }
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
