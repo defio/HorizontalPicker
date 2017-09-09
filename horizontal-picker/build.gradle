@@ -14,7 +14,7 @@ ext {
     siteUrl = 'https://github.com/jhonnyx2012/HorizontalPicker'
     gitUrl = 'https://github.com/jhonnyx2012/HorizontalPicker.git'
 
-    libraryVersion = '1.0.6'
+    libraryVersion = '1.0.7'
 
     developerId = 'jhonnyx2012'
     developerName = 'Jhonny Barrios'
