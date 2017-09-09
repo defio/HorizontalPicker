@@ -2,13 +2,15 @@
 <LinearLayout
     android:id="@+id/baseView"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="8dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/tvToday"
             android:layout_width="wrap_content"
@@ -21,7 +23,8 @@
             android:layout_gravity="right"
             android:textColor="@color/colorPrimary"
             android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="2dp"/>
+
         <TextView
             android:id="@+id/text_view_year"
             android:layout_width="wrap_content"
@@ -35,10 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.github.jhonnyx2012.horizontalpicker.HorizontalPickerDayRecyclerView
+        <com.github.jhonnyx2012.horizontalpicker.HorizontalPickerMonthRecyclerView
             android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -50,13 +53,15 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="3"
                 android:layout_height="match_parent"/>
+
             <FrameLayout
                 android:id="@+id/vHover"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/background_day_hover"
                 android:layout_height="match_parent"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
+
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_weight="3"

@@ -16,9 +16,9 @@ import org.joda.time.Days;
  * Created by Jhonny Barrios on 22/02/2017.
  */
 
-public class HorizontalPickerRecyclerView extends RecyclerView implements OnItemClickedListener, View.OnClickListener {
+public class HorizontalPickerDayRecyclerView extends RecyclerView implements OnItemClickedListener, View.OnClickListener {
 
-    private HorizontalPickerAdapter adapter;
+    private HorizontalDayPickerAdapter adapter;
     private int lastPosition;
     private LinearLayoutManager layoutManager;
     private float itemWidth;
@@ -50,15 +50,15 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         }
     };
 
-    public HorizontalPickerRecyclerView(Context context) {
+    public HorizontalPickerDayRecyclerView(Context context) {
         super(context);
     }
 
-    public HorizontalPickerRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public HorizontalPickerDayRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HorizontalPickerRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public HorizontalPickerDayRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -79,8 +79,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             @Override
             public void run() {
                 itemWidth = getMeasuredWidth() / 7;
-                adapter = new HorizontalPickerAdapter((int) itemWidth,
-                        HorizontalPickerRecyclerView.this,
+                adapter = new HorizontalDayPickerAdapter((int) itemWidth, HorizontalPickerDayRecyclerView.this,
                         daysToPlus,
                         initialOffset,
                         mBackgroundColor,
@@ -92,7 +91,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                         mUnselectedDayTextColor);
                 setAdapter(adapter);
                 LinearSnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(HorizontalPickerRecyclerView.this);
+                snapHelper.attachToRecyclerView(HorizontalPickerDayRecyclerView.this);
                 removeOnScrollListener(onScrollListener);
                 addOnScrollListener(onScrollListener);
             }
@@ -105,7 +104,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                 .setSelected(isSelected);
         adapter.notifyItemChanged(position);
         if (isSelected) {
-            listener.onDateSelected(adapter.getItem(position));
+            listener.onDateSelected(adapter
+                    .getItem(position)
+                    .getDate());
         }
     }
 

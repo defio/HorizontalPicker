@@ -1,4 +1,4 @@
-package com.github.jhonnyx2012.horizontalpicker;
+package com.github.jhonnyx2012.horizontalpicker.model;
 
 import org.joda.time.DateTime;
 
@@ -25,18 +25,11 @@ public class Day {
                 .toUpperCase();
     }
 
-    public String getMonth() {
-        return date.toString("MMMM YYYY", Locale.getDefault());
-    }
 
     public DateTime getDate() {
         return date.withTime(0, 0, 0, 0);
     }
 
-    public boolean isToday() {
-        DateTime today = new DateTime().withTime(0, 0, 0, 0);
-        return getDate().getMillis() == today.getMillis();
-    }
 
     public boolean isSelected() {
         return selected;

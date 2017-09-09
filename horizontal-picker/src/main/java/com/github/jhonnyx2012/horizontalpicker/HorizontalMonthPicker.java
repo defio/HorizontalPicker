@@ -13,18 +13,21 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
+import java.util.Locale;
+
+import static com.github.jhonnyx2012.horizontalpicker.utils.DateTimeExtKt.isCurrentMonth;
+
 /**
  * Created by Jhonny Barrios on 22/02/2017.
  */
-
-public class HorizontalPicker extends LinearLayout implements HorizontalPickerListener {
+public class HorizontalMonthPicker extends LinearLayout implements HorizontalPickerListener {
 
     private static final int NO_SETTED = -1;
     private View vHover;
-    private TextView tvMonth;
+    private TextView textViewYear;
     private TextView tvToday;
     private DatePickerListener listener;
-    private HorizontalPickerRecyclerView rvDays;
+    private HorizontalPickerMonthRecyclerView recyclerViewMonth;
     private int days;
     private int offset;
     private int mDateSelectedColor = -1;
@@ -37,18 +40,18 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private int mDayOfWeekTextColor = -1;
     private int mUnselectedDayTextColor = -1;
 
-    public HorizontalPicker(Context context) {
+    public HorizontalMonthPicker(Context context) {
         super(context);
         internInit();
     }
 
-    public HorizontalPicker(Context context, @Nullable AttributeSet attrs) {
+    public HorizontalMonthPicker(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         internInit();
 
     }
 
-    public HorizontalPicker(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public HorizontalMonthPicker(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         internInit();
     }
@@ -58,33 +61,33 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         this.offset = NO_SETTED;
     }
 
-    public HorizontalPicker setListener(DatePickerListener listener) {
+    public HorizontalMonthPicker setListener(DatePickerListener listener) {
         this.listener = listener;
         return this;
     }
 
     public void setDate(final DateTime date) {
-        rvDays.post(new Runnable() {
+        recyclerViewMonth.post(new Runnable() {
             @Override
             public void run() {
-                rvDays.setDate(date);
+                recyclerViewMonth.setDate(date);
             }
         });
     }
 
     public void init() {
-        inflate(getContext(), R.layout.horizontal_picker, this);
-        rvDays = (HorizontalPickerRecyclerView) findViewById(R.id.rvDays);
+        inflate(getContext(), R.layout.horizontal_month_picker, this);
+        recyclerViewMonth = (HorizontalPickerMonthRecyclerView) findViewById(R.id.recyclerView);
         int DEFAULT_DAYS_TO_PLUS = 120;
         int finalDays = days == NO_SETTED ? DEFAULT_DAYS_TO_PLUS : days;
         int DEFAULT_INITIAL_OFFSET = 7;
         int finalOffset = offset == NO_SETTED ? DEFAULT_INITIAL_OFFSET : offset;
         vHover = findViewById(R.id.vHover);
-        tvMonth = (TextView) findViewById(R.id.tvMonth);
+        textViewYear = (TextView) findViewById(R.id.text_view_year);
         tvToday = (TextView) findViewById(R.id.tvToday);
-        rvDays.setListener(this);
-        tvToday.setOnClickListener(rvDays);
-        tvMonth.setTextColor(mMonthAndYearTextColor != -1 ? mMonthAndYearTextColor : getColor(R.color.primaryTextColor));
+        recyclerViewMonth.setListener(this);
+        tvToday.setOnClickListener(recyclerViewMonth);
+        textViewYear.setTextColor(mMonthAndYearTextColor != -1 ? mMonthAndYearTextColor : getColor(R.color.primaryTextColor));
         tvToday.setVisibility(showTodayButton ? VISIBLE : INVISIBLE);
         tvToday.setTextColor(mTodayButtonTextColor != -1 ? mTodayButtonTextColor : getColor(R.color.colorPrimary));
         int mBackgroundColor = getBackgroundColor();
@@ -94,7 +97,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         mTodayDateTextColor = mTodayDateTextColor == -1 ? getColor(R.color.primaryTextColor) : mTodayDateTextColor;
         mDayOfWeekTextColor = mDayOfWeekTextColor == -1 ? getColor(R.color.secundaryTextColor) : mDayOfWeekTextColor;
         mUnselectedDayTextColor = mUnselectedDayTextColor == -1 ? getColor(R.color.primaryTextColor) : mUnselectedDayTextColor;
-        rvDays.init(getContext(),
+        recyclerViewMonth.init(getContext(),
                 finalDays,
                 finalOffset,
                 mBackgroundColor,
@@ -102,7 +105,6 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                 mDateSelectedTextColor,
                 mTodayDateTextColor,
                 mTodayDateBackgroundColor,
-                mDayOfWeekTextColor,
                 mUnselectedDayTextColor);
     }
 
@@ -119,7 +121,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     @Override
     public boolean post(Runnable action) {
-        return rvDays.post(action);
+        return recyclerViewMonth.post(action);
     }
 
     @Override
@@ -133,11 +135,11 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     }
 
     @Override
-    public void onDateSelected(Day item) {
-        tvMonth.setText(item.getMonth());
-        if (showTodayButton) tvToday.setVisibility(item.isToday() ? INVISIBLE : VISIBLE);
+    public void onDateSelected(DateTime item) {
+        textViewYear.setText(item.toString("YYYY", Locale.getDefault()));
+        if (showTodayButton) tvToday.setVisibility(isCurrentMonth(item) ? INVISIBLE : VISIBLE);
         if (listener != null) {
-            listener.onDateSelected(item.getDate());
+            listener.onDateSelected(item);
         }
     }
 
@@ -145,7 +147,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return days;
     }
 
-    public HorizontalPicker setDays(int days) {
+    public HorizontalMonthPicker setDays(int days) {
         this.days = days;
         return this;
     }
@@ -154,52 +156,52 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return offset;
     }
 
-    public HorizontalPicker setOffset(int offset) {
+    public HorizontalMonthPicker setOffset(int offset) {
         this.offset = offset;
         return this;
     }
 
-    public HorizontalPicker setDateSelectedColor(@ColorInt int color) {
+    public HorizontalMonthPicker setDateSelectedColor(@ColorInt int color) {
         mDateSelectedColor = color;
         return this;
     }
 
-    public HorizontalPicker setDateSelectedTextColor(@ColorInt int color) {
+    public HorizontalMonthPicker setDateSelectedTextColor(@ColorInt int color) {
         mDateSelectedTextColor = color;
         return this;
     }
 
-    public HorizontalPicker setMonthAndYearTextColor(@ColorInt int color) {
+    public HorizontalMonthPicker setMonthAndYearTextColor(@ColorInt int color) {
         mMonthAndYearTextColor = color;
         return this;
     }
 
-    public HorizontalPicker setTodayButtonTextColor(@ColorInt int color) {
+    public HorizontalMonthPicker setTodayButtonTextColor(@ColorInt int color) {
         mTodayButtonTextColor = color;
         return this;
     }
 
-    public HorizontalPicker showTodayButton(@ColorInt boolean show) {
+    public HorizontalMonthPicker showTodayButton(boolean show) {
         showTodayButton = show;
         return this;
     }
 
-    public HorizontalPicker setTodayDateTextColor(int color) {
+    public HorizontalMonthPicker setTodayDateTextColor(int color) {
         mTodayDateTextColor = color;
         return this;
     }
 
-    public HorizontalPicker setTodayDateBackgroundColor(@ColorInt int color) {
+    public HorizontalMonthPicker setTodayDateBackgroundColor(@ColorInt int color) {
         mTodayDateBackgroundColor = color;
         return this;
     }
 
-    public HorizontalPicker setDayOfWeekTextColor(@ColorInt int color) {
+    public HorizontalMonthPicker setDayOfWeekTextColor(@ColorInt int color) {
         mDayOfWeekTextColor = color;
         return this;
     }
 
-    public HorizontalPicker setUnselectedDayTextColor(@ColorInt int color) {
+    public HorizontalMonthPicker setUnselectedDayTextColor(@ColorInt int color) {
         mUnselectedDayTextColor = color;
         return this;
     }

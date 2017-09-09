@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.jhonnyx2012.horizontalpicker.model.Day;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+
+import static com.github.jhonnyx2012.horizontalpicker.utils.DateTimeExtKt.isToday;
 
 /**
  * Created by jhonn on 22/02/2017.
  */
 
-public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPickerAdapter.ViewHolder> {
+public class HorizontalDayPickerAdapter extends RecyclerView.Adapter<HorizontalDayPickerAdapter.ViewHolder> {
 
     private static final long DAY_MILLIS = AlarmManager.INTERVAL_DAY;
     private final int mBackgroundColor;
@@ -32,21 +36,21 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     private int itemWidth;
     private ArrayList<Day> items;
 
-    public HorizontalPickerAdapter(int itemWidth,
-                                   OnItemClickedListener listener,
-                                   int daysToCreate,
-                                   int offset,
-                                   int mBackgroundColor,
-                                   int mDateSelectedColor,
-                                   int mDateSelectedTextColor,
-                                   int mTodayDateTextColor,
-                                   int mTodayDateBackgroundColor,
-                                   int mDayOfWeekTextColor,
-                                   int mUnselectedDayTextColor) {
+    public HorizontalDayPickerAdapter(int itemWidth,
+                                      OnItemClickedListener listener,
+                                      int daysToCreate,
+                                      int offset,
+                                      int mBackgroundColor,
+                                      int mDateSelectedColor,
+                                      int mDateSelectedTextColor,
+                                      int mTodayDateTextColor,
+                                      int mTodayDateBackgroundColor,
+                                      int mDayOfWeekTextColor,
+                                      int mUnselectedDayTextColor) {
         items = new ArrayList<>();
         this.itemWidth = itemWidth;
         this.listener = listener;
-        generateDays(daysToCreate,
+        generateDataSet(daysToCreate,
                 new DateTime()
                         .minusDays(offset)
                         .getMillis(),
@@ -60,11 +64,12 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         this.mUnselectedDayTextColor = mUnselectedDayTextColor;
     }
 
-    public void generateDays(int n, long initialDate, boolean cleanArray) {
-        if (cleanArray) items.clear();
-        int i = 0;
-        while (i < n) {
-            DateTime actualDate = new DateTime(initialDate + (DAY_MILLIS * i++));
+    private void generateDataSet(int n, long initialDate, boolean cleanArray) {
+        if (cleanArray) {
+            items.clear();
+        }
+        for (int i = 0; i < n; i++) {
+            DateTime actualDate = new DateTime(initialDate).plusDays(i);
             items.add(new Day(actualDate));
         }
     }
@@ -86,7 +91,7 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         if (item.isSelected()) {
             holder.tvDay.setBackground(getDaySelectedBackground(holder.itemView));
             holder.tvDay.setTextColor(mDateSelectedTextColor);
-        } else if (item.isToday()) {
+        } else if (isToday(item.getDate())) {
             holder.tvDay.setBackground(getDayTodayBackground(holder.itemView));
             holder.tvDay.setTextColor(mTodayDateTextColor);
         } else {
@@ -94,6 +99,7 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
             holder.tvDay.setTextColor(mUnselectedDayTextColor);
         }
     }
+
 
     private Drawable getDaySelectedBackground(View view) {
         Drawable drawable = view
