@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerListene
                 .setDateSelectedColor(Color.DKGRAY)
                 .setDateSelectedTextColor(Color.WHITE)
                 .setMonthAndYearTextColor(Color.DKGRAY)
+              .showTodayButton(false)
                 .setTodayButtonTextColor(getResources().getColor(R.color.colorPrimary))
                 .setTodayDateTextColor(getResources().getColor(R.color.colorPrimary))
                 .setTodayDateBackgroundColor(Color.GRAY)
