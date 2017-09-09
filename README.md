@@ -26,7 +26,7 @@ DatePicker horizontal con selección smooth por día.
 
 ```groovie
 dependencies {
-    compile 'com.github.defio:horizontal-picker:1.0.7'
+    compile 'com.github.defio:horizontal-picker:1.0.8'
 }
 ```  
 

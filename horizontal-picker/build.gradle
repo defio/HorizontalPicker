@@ -5,20 +5,20 @@ ext {
     bintrayRepo = 'HorizontalPicker'
     bintrayName = 'HorizontalPicker'
 
-    publishedGroupId = 'com.github.jhonnyx2012'
+    publishedGroupId = 'com.github.defio'
     libraryName = 'HorizontalPicker'
     artifact = 'horizontal-picker'
 
     libraryDescription = 'Horizontal datepicker with smooth selection by day'
 
-    siteUrl = 'https://github.com/jhonnyx2012/HorizontalPicker'
-    gitUrl = 'https://github.com/jhonnyx2012/HorizontalPicker.git'
+    siteUrl = 'https://github.com/defio/HorizontalPicker'
+    gitUrl = 'https://github.com/defio/HorizontalPicker.git'
 
-    libraryVersion = '1.0.7'
+    libraryVersion = '1.0.8'
 
-    developerId = 'jhonnyx2012'
-    developerName = 'Jhonny Barrios'
-    developerEmail = 'jhonnyx2012@gmail.com'
+    developerId = 'defio'
+    developerName = 'Nicola De Fiorenze'
+    developerEmail = 'nicola.de.fiorenze@live.it'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
